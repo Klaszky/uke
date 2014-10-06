@@ -1,3 +1,4 @@
+from math import sqrt
 def prime(num):
 	eSet = [1]
 	if num % 2 != 0:
@@ -17,6 +18,7 @@ def prime(num):
 		return eSet
 	else:
 		return "It seems that {} is prime.".format(num)
+
 
 
 def primeGen(num):
@@ -74,7 +76,7 @@ def hCf(num1, num2):
 			continue
 	for i in commonFactors:
 		finalAnswer *= i
-	return "Highest Common Factor: {}".format(finalAnswer)
+	return "Highest Common Factor of {} and {}: {}".format(num1, num2, finalAnswer)
 
 	
 def lCm(num1, num2):
@@ -96,6 +98,7 @@ def lCm(num1, num2):
 	#return factors
 	return "Lowest Common Multiple: {}".format(finalAnswer)
 
+###Was written to solve a project euler problem. It's ugly but it works###
 def lCm2():
 	#Lowest Common Multiple
 	set1, set2, set3, set4, set5, set6, set7, set8, set9, set10 = primeFactor(1), primeFactor(2), primeFactor(3), primeFactor(4), primeFactor(5), primeFactor(6), primeFactor(7), primeFactor(8), primeFactor(9), primeFactor(10)
@@ -124,5 +127,54 @@ def lCm2():
 	print factors
 	return "Lowest Common Multiple: {}".format(finalAnswer)
 
-print lCm2()
+def quadraticFormula(a,b,c):
+	"""solves:x=(-(b) + OR - sqrt(b**2 - 4*(a*c)))/2*a
+	and returns two values."""
+	#the program gets weird if you don't do the sqrt separate
+	sqroot = sqrt(b**2 - (4*a*c))
+	pos = (-b + sqroot)/(2*a)
+	neg = (-b - sqroot)/(2*a)
+	return pos, neg
 
+def factors(*args):
+	"""iterates through the args and spits out a list of
+	their factos"""
+	for i in args:
+		print_set = []
+		if i % 2 == 0:
+			for x in xrange(1,(i/2)+1):
+				if i % x == 0:
+					print_set.append(x)
+			print_set.append(i)
+			print "The factors of {} are {}".format(i, print_set)
+		else:
+			for x in xrange(1,((i+1)/2)+1,2):
+				if i % x == 0:
+					print_set.append(x)
+			print_set.append(i)
+			print "The factors of {} are {}".format(i, print_set)
+
+def highestPrimeFactor(num):
+	"""used for finding the largest square number that can be
+	factored out of a sqrt (example sqrt(48) would return 16
+	which means you could factor out a 16 and be left with 4*sqrt(3)"""
+	squares = [i**2 for i in range(2,int(sqrt(num))+1)]
+	ans = 0
+	for i in squares:
+		if num % i == 0:
+			ans = i
+	if ans > 0:
+		return "The largest square that's in {} is: {}".format(num,ans)
+	else:
+		return "There is no hidden square in {}".format(num)
+
+
+
+if __name__ == "__main__":
+	# print lCm(93,32)
+	# print primeFactor(56)
+	# print hCf(93,62)
+	# print quadraticFormula(7,0,-14)
+	# print prime(54)
+	# factors(42,7)
+	print highestPrimeFactor()
