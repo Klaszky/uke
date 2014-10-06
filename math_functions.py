@@ -177,4 +177,4 @@ if __name__ == "__main__":
 	# print quadraticFormula(7,0,-14)
 	# print prime(54)
 	# factors(42,7)
-	print highestPrimeFactor()
+	print highestPrimeFactor(394)
