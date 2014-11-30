@@ -112,9 +112,9 @@ thirteen = """
    #       ###
   ##     #    #
  # #        ##
+   #          #
    #     #    #
-   #      ###
- #####
+ #####    ###
 """
 
 fourteen = """
@@ -233,6 +233,7 @@ def main_loop():
 
     print "\n\nCool we'll be using: ",
     
+    
     for i in sets_to_be_used:
     
         if i == sets_to_be_used[-1]:
@@ -241,23 +242,52 @@ def main_loop():
         else:
             print i + ", ",
 
-    players = int(raw_input("\n\nHow many players will be participating? (Min:2, Max: 4)  "))
+    try:
+        players = int(raw_input("\n\nHow many players will be participating? (Min: 2, Max: 4)  "))    
+    except ValueError:
+        print "Please enter a number between two and four."
+        players = int(raw_input("\n\nHow many players will be participating? (Min: 2, Max: 4)  "))
+    
 
+    
     while players < 2 or players > 4:
     
-        print "\nSorry there can only be between 2 and four players."
-        players = int(raw_input("\n\nHow many players will be participating? (Min:2, Max: 4)  ")) 
+        print "\nSorry there can only be between two and four players."
 
+        players = int(raw_input("\n\nHow many players will be participating? (Min: 2, Max: 4)  ")) 
+
+    
     player_names(players)
 
+    
     for x in range(players):     
+    
         faction_picker(sets_to_be_used, player_factions[x])
 
+    
     for z in range(players):
+    
         print "\n{} will be playing {}.\n".format(player_names_list[z], player_factions[z])
 
-    while(True):
-        break
+    
+    while win_condition(players):
+    
+        display_score(players)
+        add_score(players)
+
+    display_score(players)
+
+    victor = winner(players)
+
+    print "\n\n########################################################################################"
+    print "****************************************************************************************"
+    print "########################################################################################"
+    print "             ~~~~~~~~~~~~~~~~~~~~~~~{} WINS!~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~     ".format(victor)
+    print "########################################################################################"
+    print "****************************************************************************************"
+    print "########################################################################################\n\n"
+
+
 
 
 
@@ -282,37 +312,65 @@ def which_exp_to_be_used():
         print "6.All Decks"
         print "0.Exit Deck Selection"
         
-        deck_choice = int(raw_input("\nEnter the number for the deck you would like to use: "))
-
-        while deck_choice > 6 or deck_choice < 0 :
-            print "Sorry I didn't understand that."
+        
+        try:
             deck_choice = int(raw_input("\nEnter the number for the deck you would like to use: "))
 
+        
+        except ValueError:
+        
+            print "Please enter a non-negative number between 0-6."
+            deck_choice = int(raw_input("\nEnter the number for the deck you would like to use: "))
+
+        
+        while deck_choice > 6 or deck_choice < 0 :
+
+            print "Sorry I didn't understand that."
+            
+            try:
+            
+                deck_choice = int(raw_input("\nEnter the number for the deck you would like to use: "))
+            
+            except ValueError:
+            
+                print "Please enter a non-negative number between 0-6."
+                deck_choice = int(raw_input("\nEnter the number for the deck you would like to use: "))
+
+        
         if deck_choice not in already_chosen and deck_choice != 0:
             already_chosen.append(deck_choice)
             print "\nAwesome, I'll add those decks to the list! \n"
 
+        
         elif deck_choice == 0:
             pass
 
+        
         else:
             print "\n\nYou've already chosen those decks."
 
+        
         if deck_choice == 6:
             for i in decks:
                 for x in i:
                     to_return.append(x)
             return to_return
     
+    
     for i in already_chosen:
         for x in decks[i-1]:
             to_return.append(x)
+    
     return to_return
 
 def player_names(number_of_players):
 
     for i in range(number_of_players):
-        player_names_list[i] = raw_input("\nPlease enter player {}'s name: ".format(i+1))
+            player_names_list[i] = raw_input("\nPlease enter player {}'s name: ".format(i+1))
+            while len(player_names_list[i]) < 1 and not player_names_list[i].isalpha():
+                print "Players names' have to be at least one character long containing only letters."
+                player_names_list[i] = raw_input("\nPlease enter player {}'s name: ".format(i+1))
+
 
 def faction_picker(decks_being_used, player):
 
@@ -323,21 +381,50 @@ def faction_picker(decks_being_used, player):
 
 def display_score(number_of_players):
 
+    print "\n################ SCORES ################\n"
+
     for i in range(number_of_players):
         print "\n"
         print player_names_list[i]
         print nums[player_scores[i]]
         print "\n"
 
-
 def add_score(number_of_players):
 
     for i in range(number_of_players):
-        player_scores[i] = int(raw_input("\nEnter {}'s score for this base: ".format(player_names_list[i])))
+        try:
+            player_scores[i] += int(raw_input("\nEnter {}'s score for this base: ".format(player_names_list[i])))
+        except ValueError:
+            print "Please enter a valid number."
+            player_scores[i] += int(raw_input("\nEnter {}'s score for this base: ".format(player_names_list[i])))
 
-    display_score()
 
+def win_condition(number_of_players):
+    highest = 0
+    count = 0
 
+    for i in player_scores:
+    
+        if i > highest:
+            count = 0
+            highest = i
+    
+        elif i == highest:
+            count += 1
+
+    if highest >= 15 and count < 1:
+        return False
+
+    else:
+        return True
+
+def winner(number_of_players):
+    highest = 0
+    for i in range(number_of_players):
+        if player_scores[i] > highest:
+            highest = player_scores[i]
+            won = player_names_list[i]
+    return won
 
 if __name__ == "__main__":
     main_loop()
