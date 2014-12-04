@@ -1,3 +1,4 @@
+
 #Smash up score keeper / faction picker
 import random
 
@@ -189,7 +190,7 @@ S    S  m   m   m   aaaaa    s   s    h    h           U    U   p    p
 org_game = ['Ninja', 'Dinosaur', 'Aliens', 'Wizards', 'Zombies', 
     'Robot', 'Tricksters', 'Pirates']
 
-over_9k_exp = ['Bear Cavalry', 'Ghosts', 'Killer Plants', 'Steampunks']
+over_9k_exp = ['Bear Cavalry', 'Ghosts', 'Killer Plants', 'Steampunks', 'Geeks']
 
 sci_fic_exp = ['Cyborg Apes', 'Shapeshifters', 'Super Spies', 'Time Travelers']
 
@@ -305,7 +306,7 @@ def which_exp_to_be_used():
         
         print "\n\nWhich decks would you like to use in your game?"
         print "\n1.Original Factions"
-        print "2.Over 9000 Expansion"
+        print "2.Over 9000 Expansion & Geeks"
         print "3.Obligatory Cthulhu Expansion"
         print "4.Science Fiction Expansion"
         print "5.Monster Expansion"
