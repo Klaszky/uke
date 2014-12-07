@@ -1,4 +1,3 @@
-
 #Smash up score keeper / faction picker
 import random
 
@@ -186,6 +185,9 @@ S    S  m   m   m   aaaaa    s   s    h    h           U    U   p    p
                                                                 p
                                                                 p
 """
+
+class player:
+  pass
 
 org_game = ['Ninja', 'Dinosaur', 'Aliens', 'Wizards', 'Zombies', 
     'Robot', 'Tricksters', 'Pirates']
