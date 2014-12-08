@@ -192,7 +192,7 @@ class player:
 org_game = ['Ninja', 'Dinosaur', 'Aliens', 'Wizards', 'Zombies', 
     'Robot', 'Tricksters', 'Pirates']
 
-over_9k_exp = ['Bear Cavalry', 'Ghosts', 'Killer Plants', 'Steampunks', 'Geeks']
+over_9k_exp = ['Bear Cavalry', 'Ghosts', 'Killer Plants', 'Steampunks']
 
 sci_fic_exp = ['Cyborg Apes', 'Shapeshifters', 'Super Spies', 'Time Travelers']
 
