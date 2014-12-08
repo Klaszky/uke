@@ -197,6 +197,8 @@ cth_exp = ['Minions of Cthulhu', 'Elder Things', 'Innsmouth', 'Miskatonic Univer
 
 mons_exp = ['Giant Ants', 'Mad Scientists', 'Vampires', 'Werewolves']
 
+geeks_exp = ['Geeks']
+
 nums = [zero,one,two,three,four,five,six,seven,eight,nine,ten,eleven,twelve,thirteen,fourteen,fifteen,sixteen,seventeen,eighteen,nineteen,twenty]
 
 players = 0
@@ -293,7 +295,7 @@ def main_loop():
 
 def which_exp_to_be_used():
 
-    decks = [org_game, over_9k_exp, cth_exp, sci_fic_exp, mons_exp]
+    decks = [org_game, over_9k_exp, cth_exp, sci_fic_exp, mons_exp, geeks_exp]
     
     to_return = []
 
@@ -301,7 +303,7 @@ def which_exp_to_be_used():
     
     deck_choice = 99
 
-    while (len(to_return) > 1  or deck_choice != 0) and len(already_chosen) < 5:
+    while (len(to_return) > 1  or deck_choice != 0) and len(already_chosen) < 6:
         
         print "\n\nWhich decks would you like to use in your game?"
         print "\n1.Original Factions"
@@ -309,7 +311,8 @@ def which_exp_to_be_used():
         print "3.Obligatory Cthulhu Expansion"
         print "4.Science Fiction Expansion"
         print "5.Monster Expansion"
-        print "6.All Decks"
+        print "6.Geek Deck"
+        print "7.All Decks"
         print "0.Exit Deck Selection"
         
         
@@ -323,7 +326,7 @@ def which_exp_to_be_used():
             deck_choice = int(raw_input("\nEnter the number for the deck you would like to use: "))
 
         
-        while deck_choice > 6 or deck_choice < 0 :
+        while deck_choice > 7 or deck_choice < 0 :
 
             print "Sorry I didn't understand that."
             
@@ -350,7 +353,7 @@ def which_exp_to_be_used():
             print "\n\nYou've already chosen those decks."
 
         
-        if deck_choice == 6:
+        if deck_choice == 7:
             for i in decks:
                 for x in i:
                     to_return.append(x)
@@ -425,6 +428,16 @@ def winner(number_of_players):
             highest = player_scores[i]
             won = player_names_list[i]
     return won
+
+def reroll():
+    pass
+
+def player_chosen_faction_picker():
+    pass
+
+def print_faction_description():
+    pass
+
 
 if __name__ == "__main__":
     main_loop()
