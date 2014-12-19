@@ -1,4 +1,5 @@
 #Smash up score keeper / faction picker
+from __future__ import print_function
 import random
 
 zero = """
@@ -177,20 +178,19 @@ twenty = """
 smash_up = """
  SSSS                                                 U      U 
 S    S                                                U      U
- S                             sss    h               U      U
-  SS                 aa       s   s   h               U      U
+ S                             ssss   h               U      U
+  SS                 aa       s    s  h               U      U
     S    mmm mmm    a  a       ss     hhhhh           U      U   pppp
-S    S  m   m   m   aaaaa    s   s    h    h           U    U   p    p
- SSSS   m   m   m   a   a     sss     h    h            UUUU    ppppp
+S    S  m   m   m   aaaaa    s    s   h    h           U    U   p    p
+ SSSS   m   m   m   a   a     ssss    h    h            UUUU    ppppp
                                                                 p
                                                                 p
 """
 
-class player:
-  pass
 
-org_game = ['Ninja', 'Dinosaur', 'Aliens', 'Wizards', 'Zombies', 
-    'Robot', 'Tricksters', 'Pirates']
+sets_to_be_used = []
+
+org_game = ['Ninja', 'Dinosaur', 'Aliens', 'Wizards', 'Zombies', 'Robot', 'Tricksters', 'Pirates']
 
 over_9k_exp = ['Bear Cavalry', 'Ghosts', 'Killer Plants', 'Steampunks', 'Geeks']
 
@@ -204,95 +204,158 @@ nums = [zero,one,two,three,four,five,six,seven,eight,nine,ten,eleven,twelve,thir
 
 players = 0
 
-sets_to_be_used = []
+player1 = 0
 
-player_one = ''
-player_one_score = 0
-player_one_factions = []
+player2 = 0
 
-player_two = ''
-player_two_score = 0
-player_two_factions = []
+player3 = 0
 
-player_three = ''
-player_three_score = 0
-player_three_factions = []
+player4 = 0
 
-player_four = ''
-player_four_score = 0
-player_four_factions = []
+player_names_list = [player1, player2, player3, player4]
 
-player_names_list = [player_one, player_two, player_three, player_four]
-player_scores = [player_one_score, player_two_score, player_three_score, player_four_score]
-player_factions = [player_one_factions, player_two_factions, player_three_factions, player_four_factions]
+
+
+########################################################################################
+########################################################################################
+
+
+
+
+class player_class:
+    #sets_to_be_used
+    def __init__(self, num, factions = [], score=0, name=0):
+        self.num = num
+        self.score = score
+        self.name = class_player_name(self.num)
+
+
+
+def class_faction_picker(decks_being_used, player_num):
+    menu = 0
+    player_to_be_assigned_a_deck = player_names_list[player_num]
+    factions_to_be_assigned = player_names_list
+    
+    while len(factions) < 2:
+    
+        print( "\n    Faction Menu:    ")
+        print( "1.I would like to pick my decks.")
+        print( "2.I would like 2 random decks.")
+        print( "3.I would like to see a list of available decks.")
+    
+        try:
+            menu = int(raw_input("Please make a choice: "))
+    
+        except ValueError:
+            print( "\nSorry I didn't understand that. Try again.")
+            menu = int(raw_input("Please make a choice: "))
+
+        while menu < 1 or menu > 3:
+            print( "\nPlease enter a valid menu number.")
+            print( "\n    Faction Menu:    ")
+            print( "1.I would like to pick my decks.")
+            print( "2.I would like 2 random decks.")
+            print( "3.I would like to see a list of available decks.")
+
+        if menu == 1:
+            pass
+        elif menu == 2:
+            for i in range(2): 
+                rand = random.choice(decks_being_used)
+                player.faction.append(rand)
+                decks_being_used.remove(rand)
+
+
+
+def class_player_name(player_number):
+
+    name_to_return = raw_input("\nPlease enter player {}'s name: ".format(player_number))
+    
+    while len(name_to_return) < 1 and not name_to_return.isalpha():
+    
+        print( "Players names' have to be at least one character long containing only letters.")
+    
+        name_to_return = raw_input("\nPlease enter player {}'s name: ".format(player_number))
+
+    return name_to_return
+
+
+player1 = player_class(1)
+player1.factions = class_faction_picker(org_game, player1.num)
+
+print( player1.factions)
+
+########################################################################################
+########################################################################################
+
+
+
 
 
 def main_loop():  
     
-    print smash_up
-    print "\n\n"
+    print( smash_up)
+    print( "\n\n")
 
     sets_to_be_used = which_exp_to_be_used()
 
-    print "\n\nCool we'll be using: ",
+    print( "\n\nCool we'll be using: ",)
     
     
     for i in sets_to_be_used:
     
         if i == sets_to_be_used[-1]:
-            print " and " + i
+            print( " and " + i)
     
         else:
-            print i + ", ",
+            print( i + ", ",)
 
     try:
+
         players = int(raw_input("\n\nHow many players will be participating? (Min: 2, Max: 4)  "))    
+    
     except ValueError:
-        print "Please enter a number between two and four."
+    
+        print( "Please enter a number between two and four.")
         players = int(raw_input("\n\nHow many players will be participating? (Min: 2, Max: 4)  "))
     
 
     
     while players < 2 or players > 4:
     
-        print "\nSorry there can only be between two and four players."
+        print( "\nSorry there can only be between two and four players.")
 
         players = int(raw_input("\n\nHow many players will be participating? (Min: 2, Max: 4)  ")) 
 
     
-    player_names(players)
+    for i in range(players):
 
-    
-    for x in range(players):     
-    
-        faction_picker(sets_to_be_used, player_factions[x])
+        player_names_list[i] = player(i) 
+
 
     
     for z in range(players):
     
-        print "\n{} will be playing {}.\n".format(player_names_list[z], player_factions[z])
+        print( "\n{} will be playing {}.\n".format(player_names_list[z.name], player_factions[z.factions]))
+
 
     
-    while win_condition(players):
+    # while win_condition(players):
     
-        display_score(players)
-        add_score(players)
+    #     display_score(players)
+    #     add_score(players)
 
-    display_score(players)
+    # display_score(players)
 
-    victor = winner(players)
+    # victor = winner(players)
 
-    print "\n\n########################################################################################"
-    print "****************************************************************************************"
-    print "########################################################################################"
-    print "             ~~~~~~~~~~~~~~~~~~~~~~~{} WINS!~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~     ".format(victor)
-    print "########################################################################################"
-    print "****************************************************************************************"
-    print "########################################################################################\n\n"
-
-
-
-
+    # print( "\n\n########################################################################################")
+    # print( "****************************************************************************************")
+    # print( "########################################################################################")
+    # print( "             ~~~~~~~~~~~~~~~~~~~~~~~{} WINS!~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~     ".format(victor))
+    # print( "########################################################################################")
+    # print( "****************************************************************************************")
+    # print( "########################################################################################\n\n")
 
 def which_exp_to_be_used():
 
@@ -306,14 +369,14 @@ def which_exp_to_be_used():
 
     while (len(to_return) > 1  or deck_choice != 0) and len(already_chosen) < 5:
         
-        print "\n\nWhich decks would you like to use in your game?"
-        print "\n1.Original Factions"
-        print "2.Over 9000 Expansion & Geeks"
-        print "3.Obligatory Cthulhu Expansion"
-        print "4.Science Fiction Expansion"
-        print "5.Monster Expansion"
-        print "6.All Decks"
-        print "0.Exit Deck Selection"
+        print( "\n\nWhich decks would you like to use in your game?")
+        print( "\n1.Original Factions")
+        print( "2.Over 9000 Expansion & Geeks")
+        print( "3.Obligatory Cthulhu Expansion")
+        print( "4.Science Fiction Expansion")
+        print( "5.Monster Expansion")
+        print( "6.All Decks")
+        print( "0.Exit Deck Selection")
         
         
         try:
@@ -322,13 +385,13 @@ def which_exp_to_be_used():
         
         except ValueError:
         
-            print "Please enter a non-negative number between 0-6."
+            print( "Please enter a non-negative number between 0-6.")
             deck_choice = int(raw_input("\nEnter the number for the deck you would like to use: "))
 
         
         while deck_choice > 6 or deck_choice < 0 :
 
-            print "Sorry I didn't understand that."
+            print( "Sorry I didn't understand that.")
             
             try:
             
@@ -336,13 +399,13 @@ def which_exp_to_be_used():
             
             except ValueError:
             
-                print "Please enter a non-negative number between 0-6."
+                print( "Please enter a non-negative number between 0-6.")
                 deck_choice = int(raw_input("\nEnter the number for the deck you would like to use: "))
 
         
         if deck_choice not in already_chosen and deck_choice != 0:
             already_chosen.append(deck_choice)
-            print "\nAwesome, I'll add those decks to the list! \n"
+            print( "\nAwesome, I'll add those decks to the list! \n")
 
         
         elif deck_choice == 0:
@@ -350,7 +413,7 @@ def which_exp_to_be_used():
 
         
         else:
-            print "\n\nYou've already chosen those decks."
+            print( "\n\nYou've already chosen those decks.")
 
         
         if deck_choice == 6:
@@ -371,8 +434,10 @@ def player_names(number_of_players):
     for i in range(number_of_players):
             player_names_list[i] = raw_input("\nPlease enter player {}'s name: ".format(i+1))
             while len(player_names_list[i]) < 1 and not player_names_list[i].isalpha():
-                print "Players names' have to be at least one character long containing only letters."
+                print( "Players names' have to be at least one character long containing only letters.")
                 player_names_list[i] = raw_input("\nPlease enter player {}'s name: ".format(i+1))
+
+
 
 
 def faction_picker(decks_being_used, player):
@@ -382,15 +447,17 @@ def faction_picker(decks_being_used, player):
         player.append(rand)
         decks_being_used.remove(rand)
 
+
+
 def display_score(number_of_players):
 
-    print "\n################ SCORES ################\n"
+    print( "\n################ SCORES ################\n")
 
     for i in range(number_of_players):
-        print "\n"
-        print player_names_list[i]
-        print nums[player_scores[i]]
-        print "\n"
+        print( "\n")
+        print( player_names_list[i])
+        print( nums[player_scores[i]])
+        print( "\n")
 
 def add_score(number_of_players):
 
@@ -398,7 +465,7 @@ def add_score(number_of_players):
         try:
             player_scores[i] += int(raw_input("\nEnter {}'s score for this base: ".format(player_names_list[i])))
         except ValueError:
-            print "Please enter a valid number."
+            print( "Please enter a valid number.")
             player_scores[i] += int(raw_input("\nEnter {}'s score for this base: ".format(player_names_list[i])))
 
 
@@ -430,4 +497,5 @@ def winner(number_of_players):
     return won
 
 if __name__ == "__main__":
-    main_loop()
+    pass
+    #main_loop()
