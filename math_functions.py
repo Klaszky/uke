@@ -1,4 +1,6 @@
 from math import sqrt
+#I wrote this years ago. It's really, really not good. It does however print out a list
+#of the number's divisors if the number isn't prime.
 def prime(num):
 	eSet = [1]
 	if num % 2 != 0:
@@ -19,14 +21,17 @@ def prime(num):
 	else:
 		return "It seems that {} is prime.".format(num)
 
+#This was written In march 2017, it's a lot faster than it's the prime function above it that was written like 2-3 years ago. 
 def isPrime(num = None):
 	#Some quick tests to short cut the process
 	if num == None:
-		return "You gotta give me somthing to work with here."
+		return "No number entered."
+		return False
 	if num == 0:
-		return "Kind of a weird middle ground of this one."
+		return False
 	if num < 0:
-		return "I don't really do negitive numbers. Sorry about that."
+		print "By definition, primes are integers greater than one with no positive divisors besides one and itself. Negative numbers are excluded."
+		return False
 	if num < 4:
 		return True
 
@@ -48,7 +53,7 @@ def primeGen(num):
 	if num <= 3:
 		return primes
 	if num < 0:
-		return "I don't do negitive numbers. Sorry"
+		return "I don't do negative numbers. Sorry"
 	for i in range(5, num+1, 2):
 		temp = []
 		for x in range(3, (i/2), 2):
@@ -198,6 +203,6 @@ if __name__ == "__main__":
 	# print quadraticFormula(7,0,-14)
 	# print isPrime(18014398777917439) #takes ~30seconds
 	# print isPrime(70368760954879) #takes 1.8s
-	# print prime(16785407) #For comparison this takes .7s for a much much smaller number
+	#p rint prime(16785407) #For comparison this takes .7s for a much much smaller number
 	# factors(63)
 	# print highestPrimeFactor(175)
