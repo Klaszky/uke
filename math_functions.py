@@ -19,6 +19,28 @@ def prime(num):
 	else:
 		return "It seems that {} is prime.".format(num)
 
+def isPrime(num = None):
+	#Some quick tests to short cut the process
+	if num == None:
+		return "You gotta give me somthing to work with here."
+	if num == 0:
+		return "Kind of a weird middle ground of this one."
+	if num < 0:
+		return "I don't really do negitive numbers. Sorry about that."
+	if num < 4:
+		return True
+
+	#If it's divisible by 2 it ain't prime
+	if num % 2 == 0:
+		return False
+	else:
+		for i in xrange(3, int(sqrt(num))+1, 2):
+			if num % i == 0:
+				return False
+
+	return True
+
+
 
 
 def primeGen(num):
@@ -169,12 +191,13 @@ def highestPrimeFactor(num):
 		return "There is no hidden square in {}".format(num)
 
 
-
 if __name__ == "__main__":
 	# print lCm(93,32)
 	# print primeFactor(56)
-	# print hCf(93,62)
+	# print hCf(65,63)
 	# print quadraticFormula(7,0,-14)
-	# print prime(54)
-	# factors(42,7)
-	print highestPrimeFactor(394)
+	# print isPrime(18014398777917439) #takes ~30seconds
+	# print isPrime(70368760954879) #takes 1.8s
+	# print prime(16785407) #For comparison this takes .7s for a much much smaller number
+	# factors(63)
+	# print highestPrimeFactor(175)
